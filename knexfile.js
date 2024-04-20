@@ -4,12 +4,10 @@ module.exports = {
   development: {
     client: 'postgresql',
     connection: {
-      // TODO change to your db name
-      database: 'knexjs_tutorial',
-
-      // change to your db user
-      user: 'jgoebel',
-      password: null,
+      database: 'demo',
+      port: '5433',
+      user: 'Emma',
+      password: "postgres",
     },
     pool: {
       min: 2,
@@ -17,6 +15,10 @@ module.exports = {
     },
     migrations: {
       tableName: 'knex_migrations',
+      directory: './db/migrations'
+    },
+    seeds: {
+      directory: './db/seeds'
     },
   },
 };
