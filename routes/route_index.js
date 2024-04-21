@@ -2,7 +2,7 @@ const express = require('express');
 const exhibitionController = require('../controller/exhibition_table_queries');
 const studentController = require('../controller/student_table_queries');
 const skillController = require('../controller/skill_table_queries');
-const courseController = require('../controller/sourse_table_queries');
+const courseController = require('../controller/course_table_queries');
 // ONE CONTROLLER FOR EACH TABLE
 
 const router = express.Router();
@@ -10,6 +10,13 @@ const router = express.Router();
 
 module.exports = router;
 
-router.get("api/exhibitions", exhibitionController.getAllExhibitions);
+//router.get("/api/skills", exhibitionController.getAllSkills);
+//router.get("/api/courses", exhibitionController.getAllCourses);
+router.get("/api/exhibitions", exhibitionController.getAllExhibitions);
 
-router.get("api/exhibitions/:id", exhibitionController.getAllExhibitions);
+router.get("/api/search/:student_id/:course_id/:teacher_name/:skill_ids/:school_year/:term", exhibitionController.searchExhibitions);
+
+router.get('/health', async(req, res) => {
+    res.send("hello world :)");
+});
+// api/search/101/0/0/1/0/0
