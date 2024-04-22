@@ -14,7 +14,7 @@ module.exports = router;
 //router.get("/api/courses", exhibitionController.getAllCourses);
 router.get("/api/exhibitions", exhibitionController.getAllExhibitions);
 
-router.get("/api/search/:student_id/:course_id/:teacher_name/:skill_ids/:school_year/:term", exhibitionController.searchExhibitions);
+router.get("/api/search/:student_id/:course_id/:teacher_id/:skill_ids/:academic_year/:term", exhibitionController.searchExhibitions);
 
 router.get('/health', async(req, res) => {
     res.send("hello world :)");
