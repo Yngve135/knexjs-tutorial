@@ -60,6 +60,7 @@ const searchExhibitions = async(req, res) => {
                 if(skill_ids_array[0]) {
                     queryBuilder.whereIn("skill_id_ref", skill_ids_array)
                 }
+
                 // if(skill_ids_array[0] != 0){
                 //     this.andWhere(function() {
                 //         queryBuilder.whereIn("first_skill_id", skill_ids_array)
@@ -68,8 +69,6 @@ const searchExhibitions = async(req, res) => {
                 //     })
                 // }
             })
-        
-        //await db.select("*").from("exhibitions");
 
         res.send(selectedExhibitions);
     } catch (error) {
