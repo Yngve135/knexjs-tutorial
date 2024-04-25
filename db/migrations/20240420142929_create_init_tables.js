@@ -1,4 +1,3 @@
-
 exports.up = function(knex) {
     return knex.schema
     .createTable('users', (table) => {
@@ -12,9 +11,21 @@ exports.up = function(knex) {
     })
 
     .createTable('courses', (table) => {
-        table.increments('course_id');
+        table.increments('course_id').primary();
+
         table.string('course_number').notNullable();
         table.string('course_name').notNullable();
+        table.text('course_description').notNullable();
+        table.string('course_level').notNullable();
+    })
+
+    .createTable('classes', (table) => {
+        table.increments('class_id').primary();
+
+        table.bigint("course_id_ref")
+            .references("course_id")
+            .inTable("courses")
+            .onDelete("CASCADE");
 
         table.bigint("user_id_ref")
             .references("user_id")
@@ -23,8 +34,6 @@ exports.up = function(knex) {
 
         table.integer('academic_year').notNullable();
         table.integer('term').notNullable();
-        table.text('course_description').notNullable();
-        table.string('course_level').notNullable();
     })
 
     .createTable('exhibitions', (table) => {
@@ -35,9 +44,9 @@ exports.up = function(knex) {
             .inTable("users")
             .onDelete("CASCADE");
 
-        table.bigint('course_id_ref').notNullable()
-            .references("course_id")
-            .inTable("courses")
+        table.bigint('class_id_ref').notNullable()
+            .references("class_id")
+            .inTable("classes")
             .onDelete("CASCADE");
 
         table.boolean('display_on_home_page').notNullable();
@@ -71,6 +80,7 @@ exports.down = function(knex) {
     .dropTableIfExists('exhibitionSkillPairs')
     .dropTableIfExists('skills')
     .dropTableIfExists('exhibitions')
+    .dropTableIfExists('classes')
     .dropTableIfExists('courses')
     .dropTableIfExists('users');
 };

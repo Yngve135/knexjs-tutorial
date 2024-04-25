@@ -10,7 +10,6 @@ exports.seed = async function(knex) {
   await knex('exhibitionSkillPairs').del()
 
   // Inserts seed entries
-
   await knex('users').insert([
       {user_id: 103, honorific: 'Dr.', first_name: "Nick", last_name: "Zufelt", graduation_year: 0, bio: "I love to teach...", user_type: "Teacher"},
       {user_id: 104, honorific: 'Mrs.', first_name: "", last_name: "Clarke", graduation_year: 0, bio: "I love to teach...", user_type: "Teacher"},
@@ -19,14 +18,19 @@ exports.seed = async function(knex) {
   ]);
 
   await knex('courses').insert([
-    {course_id: 10001, course_number: "CSC573", course_name: 'Project-Based Term of CS', user_id_ref: 103, academic_year: 2023, term: 1, course_description: "In this class ... ", course_level:"Advanced"},
-    {course_id: 10002, course_number: "CSC401", course_name: 'Web Dev', user_id_ref: 104, academic_year: 2022, term: 1, course_description: "In this class ... ", course_level:"Advanced"},
+    {course_id: 10001, course_number: "CSC573", course_name: 'Project-Based Term of CS', course_description: "In this class ... ", course_level:"Advanced"},
+    {course_id: 10002, course_number: "CSC401", course_name: 'Web Dev', course_description: "In this class ... ", course_level:"Advanced"},
+  ]);
+
+  await knex('classes').insert([
+    {class_id: 1, course_id_ref: 10001, user_id_ref: 103, academic_year: 2023, term: 1},
+    {class_id: 2, course_id_ref: 10002, user_id_ref: 104, academic_year: 2022, term: 1},
   ]);
 
   await knex('exhibitions').insert([
-    {exhibition_id: 1001, user_id_ref: 102, course_id_ref: 10001, display_on_home_page: true, description: "In this video...",video_html_code:"https://"},
-    {exhibition_id: 1002, user_id_ref: 101, course_id_ref: 10001, display_on_home_page: false, description: "In this video...",video_html_code:"https://"},
-    {exhibition_id: 1003, user_id_ref: 101, course_id_ref: 10002, display_on_home_page: false, description: "In this video...",video_html_code:"https://"},
+    {exhibition_id: 1001, user_id_ref: 102, class_id_ref: 1, display_on_home_page: true, description: "In this video...",video_html_code:"https://"},
+    {exhibition_id: 1002, user_id_ref: 101, class_id_ref: 1, display_on_home_page: false, description: "In this video...",video_html_code:"https://"},
+    {exhibition_id: 1003, user_id_ref: 101, class_id_ref: 2, display_on_home_page: false, description: "In this video...",video_html_code:"https://"},
   ]);
 
   await knex('skills').insert([
