@@ -1,4 +1,4 @@
-const db = require('../db/db');
+const db = require('../../db/db');
 
 class PersonDAO {
   async createPerson(firstName, lastName, email) {

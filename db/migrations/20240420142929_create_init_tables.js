@@ -2,12 +2,20 @@ exports.up = function(knex) {
     return knex.schema
     .createTable('users', (table) => {
         table.increments('user_id').primary(); 
-        table.string("honorific").notNullable();
+
         table.string('first_name').notNullable();
         table.string('last_name').notNullable();
         table.integer('graduation_year').notNullable();
         table.text('bio').notNullable();
-        table.string("user_type").notNullable();
+    })
+
+    .createTable('admins', (table) => {
+        table.increments('admin_id').primary(); 
+
+        table.string('name').notNullable();
+        table.string('email').notNullable();
+        table.string('password').notNullable();
+        table.text('bio').notNullable();
     })
 
     .createTable('courses', (table) => {
@@ -25,11 +33,13 @@ exports.up = function(knex) {
         table.bigint("course_id_ref")
             .references("course_id")
             .inTable("courses")
+            .onUpdate('CASCADE')
             .onDelete("CASCADE");
 
-        table.bigint("user_id_ref")
-            .references("user_id")
-            .inTable("users")
+        table.bigint("admin_id_ref")
+            .references("admin_id")
+            .inTable("admins")
+            .onUpdate('CASCADE')
             .onDelete("CASCADE");
 
         table.integer('academic_year').notNullable();
@@ -42,11 +52,13 @@ exports.up = function(knex) {
         table.bigint('user_id_ref').notNullable()
             .references("user_id")
             .inTable("users")
+            .onUpdate('CASCADE')
             .onDelete("CASCADE");
 
         table.bigint('class_id_ref').notNullable()
             .references("class_id")
             .inTable("classes")
+            .onUpdate('CASCADE')
             .onDelete("CASCADE");
 
         table.boolean('display_on_home_page').notNullable();
@@ -65,11 +77,13 @@ exports.up = function(knex) {
         table.bigint('exhibition_id_ref').notNullable()
             .references("exhibition_id")
             .inTable("exhibitions")
+            .onUpdate('CASCADE')
             .onDelete("CASCADE");
 
         table.bigint('skill_id_ref').notNullable()
             .references("skill_id")
             .inTable("skills")
+            .onUpdate('CASCADE')
             .onDelete("CASCADE");
     })
     ;

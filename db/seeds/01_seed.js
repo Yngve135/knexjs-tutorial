@@ -1,21 +1,22 @@
 exports.seed = async function(knex) {
-  // SEED ALL THE OTHER TABLES
-
-
-  // Deletes ALL existing entries
+  // Deletes all existing entries
   await knex('users').del()
+  await knex('admins').del()
   await knex('courses').del()
   await knex('exhibitions').del()
   await knex('skills').del()
   await knex('exhibitionSkillPairs').del()
 
-  // Inserts seed entries
+  // inserts seed entries into data tables 
   await knex('users').insert([
-      {user_id: 103, honorific: 'Dr.', first_name: "Nick", last_name: "Zufelt", graduation_year: 0, bio: "I love to teach...", user_type: "Teacher"},
-      {user_id: 104, honorific: 'Mrs.', first_name: "", last_name: "Clarke", graduation_year: 0, bio: "I love to teach...", user_type: "Teacher"},
-      {user_id: 101, honorific: '', first_name: "Emma", last_name: "Capaldi", graduation_year: 2025, bio: "In my free time ...", user_type: "Student"},
-      {user_id: 102, honorific: '', first_name: "Hannah", last_name: "Chen", graduation_year: 2025, bio: "Super cool", user_type: "Student"},
+      {user_id: 101, email: 'ecapaldi@andover.edu', first_name: "Emma", last_name: "Capaldi", graduation_year: 2025, bio: "In my free time ..."},
+      {user_id: 102, email: 'hchen@andover.edu', first_name: "Hannah", last_name: "Chen", graduation_year: 2025, bio: "Super cool"},
   ]);
+
+  await knex('admins').insert([
+    {admin_id: 103, email: 'nzufelt@andover.edu', password: "password", name: "Nick Zufelt", bio: "I love to teach..."},
+    {admin_id: 104, email: 'mclarke@andover.edu', password: "password", name: "Mrs. Clarke", bio: "I love to teach..."},
+]);
 
   await knex('courses').insert([
     {course_id: 10001, course_number: "CSC573", course_name: 'Project-Based Term of CS', course_description: "In this class ... ", course_level:"Advanced"},
@@ -23,8 +24,8 @@ exports.seed = async function(knex) {
   ]);
 
   await knex('classes').insert([
-    {class_id: 1, course_id_ref: 10001, user_id_ref: 103, academic_year: 2023, term: 1},
-    {class_id: 2, course_id_ref: 10002, user_id_ref: 104, academic_year: 2022, term: 1},
+    {class_id: 1, course_id_ref: 10001, admin_id_ref: 103, academic_year: 2023, term: 1},
+    {class_id: 2, course_id_ref: 10002, admin_id_ref: 104, academic_year: 2022, term: 1},
   ]);
 
   await knex('exhibitions').insert([
