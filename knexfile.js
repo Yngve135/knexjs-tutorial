@@ -6,8 +6,8 @@ module.exports = {
     connection: {
       database: 'demo',
       port: '5433',
-      user: 'Emma',
-      password: "postgres",
+      user: '',
+      password: "",
     },
     pool: {
       min: 2,
@@ -23,4 +23,3 @@ module.exports = {
   },
 };
 
-// Emma postgres
