@@ -29,7 +29,7 @@ const getExhibitionsHomePageJSON = async() => {
             .innerJoin("users", "exhibitions.user_id_ref", "=", "users.user_id")
             .innerJoin("classes", "exhibitions.class_id_ref", "=", "classes.class_id")
             .innerJoin("courses", "classes.course_id_ref", "=", "courses.course_id")
-            .leftJoin("exhibitionSkillPairs", "exhibitions.exhibition_id", "exhibitionSkillPairs.exhibition_id_ref");
+            //.leftJoin("exhibitionSkillPairs", "exhibitions.exhibition_id", "exhibitionSkillPairs.exhibition_id_ref");
             //.groupBy("exhibitions.exhibition_id");
         return exhibitions;
     } catch (error) {

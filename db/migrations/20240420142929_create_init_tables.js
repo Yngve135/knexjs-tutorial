@@ -65,7 +65,7 @@ exports.up = function(knex) {
 
         table.boolean('display_on_home_page').notNullable();
         table.text('description').notNullable();
-        table.string('video_html_code').notNullable();
+        table.text('video_html_code').notNullable();
     })
 
     .createTable('skills', (table) => {
