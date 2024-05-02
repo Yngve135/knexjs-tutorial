@@ -11,6 +11,32 @@ const getAllExhibitions = async(req, res) => {
     }
 }
 
+const getExhibitionsHomePage = async(req, res) => {
+    try {
+        const exhibitions = await db.select("*").from("exhibitions")
+            .where("display_on_home_page", true);
+        res.send(exhibitions);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({error: error.message}) // Something is very majorly wrong
+    }
+}
+
+const getExhibitionsHomePageJSON = async() => {
+    try {
+        const exhibitions = await db.select("*").from("exhibitions")
+            .where("display_on_home_page", true)
+            .innerJoin("users", "exhibitions.user_id_ref", "=", "users.user_id")
+            .innerJoin("classes", "exhibitions.class_id_ref", "=", "classes.class_id")
+            .innerJoin("courses", "classes.course_id_ref", "=", "courses.course_id")
+            .leftJoin("exhibitionSkillPairs", "exhibitions.exhibition_id", "exhibitionSkillPairs.exhibition_id_ref");
+            //.groupBy("exhibitions.exhibition_id");
+        return exhibitions;
+    } catch (error) {
+        return [];
+    }
+}
+
 const searchExhibitions = async(req, res) => {
     try {
         const student_id = parseInt(req.params.student_id);
@@ -80,5 +106,7 @@ const searchExhibitions = async(req, res) => {
 module.exports = {
     // ALL FUNCTIONS USED GO HERE
     getAllExhibitions,
-    searchExhibitions
+    getExhibitionsHomePage,
+    getExhibitionsHomePageJSON,
+    searchExhibitions,
 };

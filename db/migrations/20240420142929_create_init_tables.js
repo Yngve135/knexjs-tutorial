@@ -1,3 +1,5 @@
+// creates initial database schema
+
 exports.up = function(knex) {
     return knex.schema
     .createTable('users', (table) => {
@@ -30,13 +32,13 @@ exports.up = function(knex) {
     .createTable('classes', (table) => {
         table.increments('class_id').primary();
 
-        table.bigint("course_id_ref")
+        table.integer("course_id_ref")
             .references("course_id")
             .inTable("courses")
             .onUpdate('CASCADE')
             .onDelete("CASCADE");
 
-        table.bigint("admin_id_ref")
+        table.integer("admin_id_ref")
             .references("admin_id")
             .inTable("admins")
             .onUpdate('CASCADE')
@@ -49,13 +51,13 @@ exports.up = function(knex) {
     .createTable('exhibitions', (table) => {
         table.increments('exhibition_id').primary(); 
 
-        table.bigint('user_id_ref').notNullable()
+        table.integer('user_id_ref').notNullable()
             .references("user_id")
             .inTable("users")
             .onUpdate('CASCADE')
             .onDelete("CASCADE");
 
-        table.bigint('class_id_ref').notNullable()
+        table.integer('class_id_ref').notNullable()
             .references("class_id")
             .inTable("classes")
             .onUpdate('CASCADE')
@@ -74,13 +76,13 @@ exports.up = function(knex) {
     })
 
     .createTable('exhibitionSkillPairs', (table) => {
-        table.bigint('exhibition_id_ref').notNullable()
+        table.integer('exhibition_id_ref').notNullable()
             .references("exhibition_id")
             .inTable("exhibitions")
             .onUpdate('CASCADE')
             .onDelete("CASCADE");
 
-        table.bigint('skill_id_ref').notNullable()
+        table.integer('skill_id_ref').notNullable()
             .references("skill_id")
             .inTable("skills")
             .onUpdate('CASCADE')
@@ -96,5 +98,6 @@ exports.down = function(knex) {
     .dropTableIfExists('exhibitions')
     .dropTableIfExists('classes')
     .dropTableIfExists('courses')
+    .dropTableIfExists('admins')
     .dropTableIfExists('users');
 };

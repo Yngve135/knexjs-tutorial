@@ -1,3 +1,5 @@
+// seeds some preliminary data
+
 exports.seed = async function(knex) {
   // Deletes all existing entries
   await knex('users').del()
@@ -16,7 +18,7 @@ exports.seed = async function(knex) {
   await knex('admins').insert([
     {admin_id: 103, email: 'nzufelt@andover.edu', password: "password", name: "Nick Zufelt", bio: "I love to teach..."},
     {admin_id: 104, email: 'mclarke@andover.edu', password: "password", name: "Mrs. Clarke", bio: "I love to teach..."},
-]);
+  ]);
 
   await knex('courses').insert([
     {course_id: 10001, course_number: "CSC573", course_name: 'Project-Based Term of CS', course_description: "In this class ... ", course_level:"Advanced"},
@@ -25,13 +27,13 @@ exports.seed = async function(knex) {
 
   await knex('classes').insert([
     {class_id: 1, course_id_ref: 10001, admin_id_ref: 103, academic_year: 2023, term: 1},
-    {class_id: 2, course_id_ref: 10002, admin_id_ref: 104, academic_year: 2022, term: 1},
+    {class_id: 2, course_id_ref: 10002, admin_id_ref: 104, academic_year: 2022, term: 2},
   ]);
 
   await knex('exhibitions').insert([
-    {exhibition_id: 1001, user_id_ref: 102, class_id_ref: 1, display_on_home_page: true, description: "In this video...",video_html_code:"https://"},
-    {exhibition_id: 1002, user_id_ref: 101, class_id_ref: 1, display_on_home_page: false, description: "In this video...",video_html_code:"https://"},
-    {exhibition_id: 1003, user_id_ref: 101, class_id_ref: 2, display_on_home_page: false, description: "In this video...",video_html_code:"https://"},
+    {exhibition_id: 1001, user_id_ref: 102, class_id_ref: 1, display_on_home_page: true, description: "In this video...",video_html_code:"https://www.youtube.com/watch?v=SnncAvMYxgY"},
+    {exhibition_id: 1002, user_id_ref: 101, class_id_ref: 1, display_on_home_page: true, description: "In this video...",video_html_code:"https://www.youtube.com/watch?v=SnncAvMYxgY"},
+    {exhibition_id: 1003, user_id_ref: 101, class_id_ref: 2, display_on_home_page: true, description: "In this video...",video_html_code:"https://www.youtube.com/watch?v=SnncAvMYxgY"},
   ]);
 
   await knex('skills').insert([
