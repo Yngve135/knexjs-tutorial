@@ -21,11 +21,30 @@ app.use(router);
 app.get('/', async function(req, res){
    exhibitions = await exhibitionController.getExhibitionsHomePageJSON();
    console.log(exhibitions)
-   //res.send(exhibitions.description);
    res.render("home", 
       {exhibitions
       })
 });
+
+app.get("/search", function (req, res) {
+   res.render("search");
+ });
+ 
+ app.get("/cs_at_andover", function (req, res) {
+   res.render("csAtAndover");
+ });
+ 
+ app.get("/about_us", function (req, res) {
+   res.render("about");
+ });
+ 
+ app.get("/admin-login", function (req, res) {
+   res.render("admin-login");
+ });
+ 
+ app.get("/admin-home", function (req, res) {
+   res.render("admin-home");
+ });
 
 // // uploading excel files template code
 // app.post('/upload', upload.single('file'), async (req, res) => {

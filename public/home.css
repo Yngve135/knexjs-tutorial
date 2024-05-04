@@ -172,11 +172,7 @@ body{
   
   .video_thumbnail{
     display: flex;
-    border: 3px solid black;
     margin: 10px;
-    height: 168.75px;
-    width: 300px;
-    background-color: black;
   }
   
   .video_text{

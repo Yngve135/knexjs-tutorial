@@ -24,13 +24,28 @@ const getExhibitionsHomePage = async(req, res) => {
 
 const getExhibitionsHomePageJSON = async() => {
     try {
-        const exhibitions = await db.select("*").from("exhibitions")
+        columns = ['exhibitions.exhibition_id', 'exhibitions.description', 'exhibitions.video_html_code', 'users.first_name', 'users.last_name', 'classes.academic_year', 'classes.term', 'courses.course_number', 'courses.course_name']
+        const exhibitions = await //knex.table("exhibitions")
+            db
+            //.select("*")
+            .select(columns.concat([
+                //'exhibitionSkillPairs.skill_id_ref',
+                db.raw('ARRAY_AGG(skills.skill_name) skills'),
+                db.raw('ARRAY_AGG(skills.throughline) throughlines')
+               ]))
+            //
+            .from("exhibitions")
+            
             .where("display_on_home_page", true)
             .innerJoin("users", "exhibitions.user_id_ref", "=", "users.user_id")
             .innerJoin("classes", "exhibitions.class_id_ref", "=", "classes.class_id")
             .innerJoin("courses", "classes.course_id_ref", "=", "courses.course_id")
-            //.leftJoin("exhibitionSkillPairs", "exhibitions.exhibition_id", "exhibitionSkillPairs.exhibition_id_ref");
-            //.groupBy("exhibitions.exhibition_id");
+            .leftJoin("exhibitionSkillPairs", "exhibitions.exhibition_id", "exhibitionSkillPairs.exhibition_id_ref")
+            
+            .leftJoin("skills", "exhibitionSkillPairs.skill_id_ref", "skills.skill_id")
+            
+            .groupBy(columns)
+            ;
         return exhibitions;
     } catch (error) {
         return [];
